@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Port Townsend This Weekend</title>
+<meta name="description" content="Things to do in Port Townsend and East Jefferson County this weekend.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ground:#EEF3F8;--ink:#0F2A4A;--accent:#1F5A8A;--soft:#DCE6F0;--muted:#4A6280;--card:#FFFFFF;--warn:#8A5A1F;--warnbg:#FBF1E3}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.5 "Public Sans",system-ui,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 48px}
+  header{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
+  .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:800;font-size:clamp(34px,8vw,56px);line-height:1;margin:6px 0 8px}
+  .dates{font-weight:600;color:var(--muted)}
+  .hook{margin:8px 0 0;font-size:18px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .filters button{border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:6px 12px;font:600 14px "Public Sans",sans-serif;cursor:pointer}
+  .filters button.on{background:var(--accent);color:#fff}
+  .day{margin:0 0 22px}
+  .band{background:var(--accent);color:#fff;font-family:Fraunces,Georgia,serif;font-weight:600;font-size:22px;padding:8px 14px;border-radius:6px 6px 0 0}
+  .ev{background:var(--card);border-bottom:1px solid var(--soft);padding:12px 14px;display:grid;grid-template-columns:76px 1fr;gap:10px}
+  .ev:last-child{border-radius:0 0 6px 6px;border-bottom:0}
+  .time{font-weight:700;color:var(--accent);font-size:15px}
+  .title{font-weight:700;font-size:17px}
+  .title a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--soft)}
+  .where{color:var(--muted);font-size:14px}
+  .blurb{margin:4px 0 0;font-size:15px}
+  .meta{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+  .pill{border-radius:999px;padding:2px 9px;font-weight:700;font-size:12px}
+  .cat{background:var(--soft);color:var(--ink)}
+  .check{background:var(--warnbg);color:var(--warn)}
+  .empty{background:var(--card);padding:24px;border-radius:6px;text-align:center;color:var(--muted)}
+  footer{margin-top:30px;border-top:1px solid var(--soft);padding-top:14px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Port Townsend &amp; East Jefferson County</div>
+    <h1>This Weekend</h1>
+    <div class="dates" id="dates"></div>
+    <p class="hook" id="hook"></p>
+  </header>
+  <div class="filters" id="filters"></div>
+  <main id="days"></main>
+  <footer>
+    <p><strong>A best-effort guide.</strong> Times and details can change, so check with the organizer before you go, especially for anything marked <span class="pill check">Check before you go</span>.</p>
+    <p id="updated"></p>
+  </footer>
+</div>
+<script>
+const CATS=["Music","Stage & Film","Art","Markets & Food","Outdoors & Maritime","Family","Talks & Community"];
+let data=null, active="All";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtDay=d=>new Date(d+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
+function render(){
+  if(!data) return;
+  document.getElementById("dates").textContent=data.weekend_label||"";
+  document.getElementById("hook").textContent=data.hook||"";
+  document.getElementById("updated").textContent=data.updated?("Updated "+data.updated):"";
+  const f=document.getElementById("filters");
+  f.innerHTML=["All",...CATS].map(c=>`<button class="${c===active?"on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+  f.querySelectorAll("button").forEach(b=>b.onclick=()=>{active=b.dataset.c;render();});
+  const evs=(data.events||[]).filter(e=>active==="All"||e.category===active);
+  const days=document.getElementById("days");
+  if(!(data.events||[]).length){days.innerHTML=`<div class="empty">This weekend's listings are being put together. Check back Thursday evening.</div>`;return;}
+  const order=data.days||[...new Set(evs.map(e=>e.date))].sort();
+  days.innerHTML=order.map(d=>{
+    const list=evs.filter(e=>e.date===d).sort((a,b)=>(a.sort||"").localeCompare(b.sort||""));
+    if(!list.length) return "";
+    return `<section class="day"><div class="band">${esc(d==="all"?"On view all weekend":fmtDay(d))}</div>${list.map(e=>`
+      <div class="ev"><div class="time">${esc(e.start||"")}</div><div>
+        <div class="title">${e.url?`<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>`:esc(e.title)}</div>
+        <div class="where">${esc(e.venue)}${e.address?" · "+esc(e.address):""}${e.cost?" · "+esc(e.cost):""}</div>
+        ${e.blurb?`<p class="blurb">${esc(e.blurb)}</p>`:""}
+        <div class="meta"><span class="pill cat">${esc(e.category)}</span>${e.verified?"":`<span class="pill check">Check before you go</span>`}</div>
+      </div></div>`).join("")}</section>`;
+  }).join("")||`<div class="empty">Nothing in this category this weekend.</div>`;
+}
+async function load(){
+  try{const r=await fetch("events.json?t="+Date.now(),{cache:"no-store"});data=await r.json();render();}catch(e){}
+}
+load(); setInterval(load,30*60*1000);
+</script>
+</body>
+</html>
