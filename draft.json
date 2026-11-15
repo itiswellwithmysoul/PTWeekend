@@ -1,6 +1,6 @@
 {
   "weekend_label": "Friday, November 20 – Sunday, November 22, 2026",
-  "hook": "Key City opens The Gift of the Magi, a cello-and-guitar duo plays Rainshadow, and the Turkey Trot runs Saturday morning.",
+  "hook": "The holiday season starts early this year: Key City opens The Gift of the Magi on Friday, a guitar-and-cello duo plays Rainshadow out at the fort, and Saturday begins with a Turkey Trot on the Larry Scott Trail and ends with a contra dance at the Grange.",
   "updated": "Saturday, Nov 14 (draft)",
   "days": [
     "2026-11-20",
@@ -98,7 +98,8 @@
       "blurb": "The O. Henry Christmas story with carols, opening with a champagne reception.",
       "url": "https://keycitypublictheatre.org/events/the-gift-of-the-magi",
       "category": "Stage & Film",
-      "verified": true
+      "verified": true,
+      "pick": true
     },
     {
       "date": "2026-11-20",
@@ -111,7 +112,8 @@
       "blurb": "Guitar, cello and close harmonies from a Colorado folk duo; all ages, doors at 7.",
       "url": "https://www.ticketstorm.com/event/sturtzduo/rainshadowrecordingstudiobuilding315/porttownsend/33254/",
       "category": "Music",
-      "verified": true
+      "verified": true,
+      "pick": true
     },
     {
       "date": "2026-11-21",
@@ -124,7 +126,8 @@
       "blurb": "Kids' mile at 9, 5K at 9:30 on a flat trail, raising money for children's mental health care; sign up until 10 that morning.",
       "url": "https://runsignup.com/Race/WA/PortTownsend/JumpingMouseTurkeyTrot",
       "category": "Outdoors & Maritime",
-      "verified": true
+      "verified": true,
+      "pick": true
     },
     {
       "date": "2026-11-21",
