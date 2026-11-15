@@ -106,7 +106,7 @@ function ev(e){
     <div class="where">${where}</div>
     ${e.blurb?`<p class="blurb">${esc(e.blurb)}</p>`:""}
     <div class="meta">${esc(e.category)}${e.verified?"":`<span class="dot">·</span><span class="check">Check before you go</span>`}</div>
-    ${e.url?`<div class="src">Source: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(host(e.url))} ↗</a></div>`:""}
+    ${e.url?`<div class="src">Source: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(host(e.url))} ↗</a></div>`:(e.source?`<div class="src">Source: ${esc(e.source)}</div>`:"")}
   </div></div>`;
 }
 function render(){

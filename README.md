@@ -14,4 +14,5 @@ A weekly guide to things to do in Port Townsend and East Jefferson County (Fri鈥
 | `start` / `sort` | Display time (e.g. `7:30 pm`) / 24h sort key (e.g. `19:30`) |
 | `title`, `venue`, `address`, `cost`, `blurb`, `url` | Listing details |
 | `category` | Music 路 Stage & Film 路 Art 路 Markets & Food 路 Outdoors & Maritime 路 Family 路 Talks & Community |
+| `source` | Shown when there's no `url`, e.g. `Facebook (shared by a reader)` |
 | `verified` | `true` if confirmed on the organizer's own page; otherwise shows "Check before you go" |
