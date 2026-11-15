@@ -14,12 +14,12 @@
 html{font-size:clamp(16px,0.3vw + 13.5px,19px)}
 body{background:var(--bg);color:var(--ink);font:1rem/1.55 var(--f-serif);-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.paper{width:min(100% - 2*max(20px,env(safe-area-inset-left,0px)),46rem);margin:0 auto;padding:clamp(18px,4vw,48px) 0 64px}
+.paper{width:min(100% - 2*max(20px,env(safe-area-inset-left,0px)),1560px);margin:0 auto;padding:clamp(18px,4vw,48px) 0 64px}
 
 /* masthead */
 .top{display:flex;justify-content:space-between;gap:12px;font:600 .66rem/1 var(--f-sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-bottom:10px}
 .mast{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0 14px;text-align:center}
-.mast h1{font:800 clamp(2.5rem,8vw,4.4rem)/.95 var(--f-sans);letter-spacing:-.04em}
+.mast h1{font:800 clamp(2.5rem,7vw,6rem)/.95 var(--f-sans);letter-spacing:-.04em}
 .mast h1 span{color:var(--lead)}
 .mast .sub{font:italic 400 1.05rem/1.3 var(--f-serif);color:var(--muted);margin-top:8px}
 .dateline{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;border-bottom:1px solid var(--rule);padding:9px 0;font:600 .7rem/1.3 var(--f-sans);letter-spacing:.12em;text-transform:uppercase}
@@ -28,7 +28,9 @@ a{color:inherit}
 .jump a{text-decoration:none;color:var(--muted)}.jump a:hover{color:var(--lead)}
 
 /* lede + picks */
-.lede{font:400 1.32rem/1.45 var(--f-serif);margin:26px 0 6px}
+.front{display:grid;gap:8px 48px;margin-top:26px}
+@media (min-width:900px){.front{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}.front .picks{margin-top:0;border-top:0;border-left:1px solid var(--rule);padding:0 0 0 28px}}
+.lede{font:400 clamp(1.18rem,1.5vw,1.55rem)/1.45 var(--f-serif);margin:0}
 .lede::first-letter{float:left;font:800 3.3rem/.82 var(--f-sans);color:var(--lead);margin:.08em .1em 0 0}
 .picks{margin:22px 0 4px;padding:14px 0 4px;border-top:1px solid var(--ink)}
 .kicker{font:600 .66rem/1.3 var(--f-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--lead);margin-bottom:6px}
@@ -39,7 +41,12 @@ a{color:inherit}
 .picks span{color:var(--muted)}
 
 /* days */
-.day{margin-top:38px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,23rem),1fr));gap:0 36px;margin-top:38px;align-items:start}
+.day{min-width:0;margin-bottom:34px}
+@media (min-width:900px){.days .day+.day{border-left:1px solid var(--rule);padding-left:36px}}
+.day.all{grid-column:1/-1}
+.day.all .list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));column-gap:36px}
+@media (min-width:900px){.days .day.all{border-left:0;margin-left:0;padding-left:0}}
 .day h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px;font:800 clamp(1.7rem,4vw,2.2rem)/1 var(--f-sans);letter-spacing:-.03em}
 .day h2 small{font:600 .7rem/1 var(--f-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ev{display:grid;grid-template-columns:5.4rem minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
@@ -52,9 +59,12 @@ a{color:inherit}
 .meta{margin-top:5px;font:600 .62rem/1.3 var(--f-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .meta .check{color:var(--warn)}
 .meta .dot{margin:0 6px}
+.src{margin-top:4px;font:500 .74rem/1.3 var(--f-sans)}
+.src a{color:var(--lead);text-decoration:underline;text-underline-offset:2px;text-decoration-color:color-mix(in srgb,var(--lead) 40%,transparent)}
+.src a:hover{text-decoration-color:var(--lead)}
 
 /* colophon */
-.colophon{margin-top:44px;border-top:3px solid var(--ink);padding-top:14px;display:grid;gap:12px}
+.colophon{margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:12px 36px;border-top:3px solid var(--ink);padding-top:14px;display:grid;gap:12px}
 .colophon p{font-size:.92rem;color:var(--muted)}
 .colophon b{font:600 .66rem/1.3 var(--f-sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-right:6px}
 .empty{text-align:center;padding:40px 0;font:italic 1.2rem/1.4 var(--f-serif);color:var(--muted)}
@@ -86,6 +96,7 @@ const dObj=d=>new Date(d+"T12:00:00");
 const dayName=d=>d==="all"?"All Weekend":dObj(d).toLocaleDateString("en-US",{weekday:"long"});
 const dayShort=d=>d==="all"?"Ongoing":dObj(d).toLocaleDateString("en-US",{weekday:"short"});
 const daySub=d=>d==="all"?"Exhibits & ongoing":dObj(d).toLocaleDateString("en-US",{month:"long",day:"numeric"});
+const host=u=>{try{return new URL(u).hostname.replace(/^www\./,"")}catch(x){return "link"}};
 function ev(e){
   const t=e.start?`<div class="time">${esc(e.start)}</div>`:"";
   const where=[e.venue,e.address,e.cost].filter(Boolean).map(esc).join(" · ");
@@ -94,6 +105,7 @@ function ev(e){
     <div class="where">${where}</div>
     ${e.blurb?`<p class="blurb">${esc(e.blurb)}</p>`:""}
     <div class="meta">${esc(e.category)}${e.verified?"":`<span class="dot">·</span><span class="check">Check before you go</span>`}</div>
+    ${e.url?`<div class="src">Source: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(host(e.url))} ↗</a></div>`:""}
   </div></div>`;
 }
 function render(){
@@ -105,12 +117,12 @@ function render(){
   const days=(data.days&&data.days.length?data.days:[...new Set(all.map(e=>e.date))].sort()).filter(d=>all.some(e=>e.date===d));
   document.getElementById("jump").innerHTML=days.map(d=>`<a href="#d-${d}">${esc(dayShort(d))}</a>`).join("");
   const picks=all.filter(e=>e.pick);
-  let h=data.hook?`<p class="lede">${esc(data.hook)}</p>`:"";
+  let h=`<div class="front">`+(data.hook?`<p class="lede">${esc(data.hook)}</p>`:"");
   if(picks.length) h+=`<section class="picks"><div class="kicker">Don't miss</div><ol>${picks.map(e=>`<li><div><b>${esc(e.title)}</b> <span>— ${esc(dayName(e.date))}${e.start?", "+esc(e.start):""}, ${esc(e.venue)}</span></div></li>`).join("")}</ol></section>`;
-  h+=days.map(d=>{
+  h+=`</div><div class="days">`+days.map(d=>{
     const list=all.filter(e=>e.date===d).sort((a,b)=>(a.sort||"99").localeCompare(b.sort||"99"));
-    return `<section class="day" id="d-${d}"><h2>${esc(dayName(d))}<small>${esc(daySub(d))}</small></h2>${list.map(ev).join("")}</section>`;
-  }).join("");
+    return `<section class="day${d==="all"?" all":""}" id="d-${d}"><h2>${esc(dayName(d))}<small>${esc(daySub(d))}</small></h2><div class="list">${list.map(ev).join("")}</div></section>`;
+  }).join("")+`</div>`;
   main.innerHTML=h;
 }
 async function load(){try{const r=await fetch("events.json?t="+Date.now(),{cache:"no-store"});data=await r.json();render();}catch(e){}}
