@@ -1,7 +1,7 @@
 {
   "weekend_label": "Friday, November 20 – Sunday, November 22, 2026",
   "hook": "Key City opens The Gift of the Magi on Friday, the Sturtz Duo plays Rainshadow at the fort, and Saturday runs from the Turkey Trot to a contra dance at the Grange.",
-  "updated": "Thursday, Nov 19, 11:15 am",
+  "updated": "Thursday, Nov 19, 6:00 pm",
   "days": [
     "2026-11-20",
     "2026-11-21",
@@ -108,7 +108,7 @@
       "venue": "Finnriver Farm & Cidery",
       "address": "124 Center Rd, Chimacum",
       "cost": "",
-      "blurb": "A stand-up lineup takes over the cidery for the evening.",
+      "blurb": "A night of touring stand-up comics at the cidery, with tickets sold ahead.",
       "url": "https://allevents.in/chimacum/next-stop-comedy-at-finnriver-farm-and-cidery/200030988048701",
       "category": "Stage & Film",
       "verified": false
@@ -198,11 +198,11 @@
       "date": "2026-11-21",
       "start": "10:00 am",
       "sort": "10:00",
-      "title": "Port Ludlow Artists Fair",
-      "venue": "The Inn at Port Ludlow",
+      "title": "Port Ludlow Art League Holiday Art Fair",
+      "venue": "Port Ludlow Resort (the Inn)",
       "address": "1 Heron Rd, Port Ludlow",
       "cost": "",
-      "blurb": "Local artists sell holiday-ready work at the Inn.",
+      "blurb": "More than 20 local artists and makers fill the Inn with cards, pottery, jewelry and art until 3, with cocoa by the fire.",
       "url": "https://allevents.in/port-ludlow/port-ludlow-artists-fair-port-ludlow-inn/200031009194449",
       "category": "Art",
       "verified": false
@@ -532,6 +532,45 @@
       "url": "https://ptleader.com/events/being-on-the-wing-bird-photography-by-mike-kalichman-and-words-by-nicholas-england/",
       "category": "Art",
       "verified": false
+    },
+    {
+      "date": "2026-11-20",
+      "start": "5:00 pm",
+      "sort": "17:00",
+      "title": "Solomon (from Bete Grise)",
+      "venue": "Port Townsend Brewing Company",
+      "address": "",
+      "cost": "",
+      "blurb": "Solomon Kronenberg of Bete Grise sings indoors at the brewery from 5 to 7.",
+      "category": "Music",
+      "verified": false,
+      "source": "Facebook (shared by a reader)"
+    },
+    {
+      "date": "2026-11-21",
+      "start": "10:00 am",
+      "sort": "10:00",
+      "title": "Timber Forest Artists Market",
+      "venue": "Chimacum Grange",
+      "address": "",
+      "cost": "",
+      "blurb": "Handmade, one-of-a-kind gifts from a team of local artisans, 10 to 4.",
+      "category": "Art",
+      "verified": false,
+      "source": "Facebook (shared by a reader)"
+    },
+    {
+      "date": "2026-11-21",
+      "start": "6:30 pm",
+      "sort": "18:30",
+      "title": "Randall Wolf Band",
+      "venue": "Port Townsend Elks Lodge (BPOE 317)",
+      "address": "",
+      "cost": "",
+      "blurb": "Southern rock, classic rock and funky grooves for a Saturday night at the Elks.",
+      "category": "Music",
+      "verified": false,
+      "source": "Facebook (shared by a reader)"
     }
   ]
 }
